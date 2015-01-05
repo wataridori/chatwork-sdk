@@ -1,0 +1,14 @@
+{
+    "name": "wataridori/chatwork-sdk",
+    "description": "Just a non-official SDK for Chatwork",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Tran Duc Thang",
+            "email": "thangtd90@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"wataridori\\ChatworkSDK\\": "src/"}
+    }
+}
