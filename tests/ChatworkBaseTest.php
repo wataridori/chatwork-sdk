@@ -2,7 +2,7 @@
 
 use wataridori\ChatworkSDK\ChatworkBase;
 
-class ChatworkBaseTestCase extends PHPUnit_Framework_TestCase
+class ChatworkBaseTest extends PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {
