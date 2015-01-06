@@ -18,3 +18,6 @@ function loader($path)
 }
 
 loader($src);
+
+$base = realpath(dirname(__FILE__)) . '/ChatworkTestBase.php';
+require_once $base;

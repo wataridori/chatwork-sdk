@@ -2,6 +2,7 @@
 
 namespace wataridori\ChatworkSDK;
 
+use wataridori\ChatworkSDK\Helper\Text;
 
 class ChatworkUser extends ChatworkBase
 {
@@ -18,8 +19,15 @@ class ChatworkUser extends ChatworkBase
     {
         if (is_array($account)) {
             foreach ($account as $key => $value) {
-
+                $property = Text::snakeToCamel($key);
+                if (property_exists($this, $property)) {
+                    $this->$property = $value;
+                }
             }
+        } elseif (is_numeric($account)) {
+            $this->accountId = $account;
+            $this->name = $name;
+            $this->avatarImageUrl = $avatarImageUrl;
         }
     }
 

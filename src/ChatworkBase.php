@@ -159,35 +159,4 @@ class ChatworkBase
         $text = $this->buildReply($userId, $messageId, $roomId, $userName, $newLine);
         $this->appendMessage($text);
     }
-
-    /**
-     * Send request to Chatwork
-     * @param string $url
-     * @param string|null $type
-     * @param array|null $params
-     * @return mixed
-     * @throws NoChatworkApiKeyException
-     */
-    public function send($url, $type = null, $params = null)
-    {
-        if (!$this->apiKey) {
-            throw new NoChatworkApiKeyException;
-        }
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['X-ChatWorkToken: ' . $this->getApiKey()]);
-
-        if ($type) {
-            curl_setopt($ch, $type, 1);
-        }
-
-        if ($params) {
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params, '', '&'));
-        }
-
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $response = curl_exec($ch);
-        curl_close($ch);
-        return $response;
-    }
 }
