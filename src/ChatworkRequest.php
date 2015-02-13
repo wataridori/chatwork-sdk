@@ -2,6 +2,7 @@
 
 namespace wataridori\ChatworkSDK;
 
+use wataridori\ChatworkSDK\Exception\RequestFailException;
 
 class ChatworkRequest
 {
@@ -102,6 +103,7 @@ class ChatworkRequest
     /**
      * Send Request to Chatwork
      * @return array
+     * @throws RequestFailException
      */
     public function send()
     {
@@ -133,6 +135,11 @@ class ChatworkRequest
         $response = json_decode(curl_exec($curl), 1);
         $info = curl_getinfo($curl);
         curl_close($curl);
+
+        if ($info['http_code'] >= 400) {
+            $error = $response['errors'];
+            throw new RequestFailException($error);
+        }
 
         return [
             'http_code' => $info['http_code'],
