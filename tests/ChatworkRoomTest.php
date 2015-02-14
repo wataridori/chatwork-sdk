@@ -2,8 +2,9 @@
 
 use wataridori\ChatworkSDK\ChatworkSDK;
 use wataridori\ChatworkSDK\ChatworkApi;
+use wataridori\ChatworkSDK\ChatworkRoom;
 
-class ChatworkApiTest extends ChatworkTestBase
+class ChatworkRoomTest extends ChatworkTestBase
 {
     protected $apiKey;
     protected $roomId;
@@ -15,13 +16,13 @@ class ChatworkApiTest extends ChatworkTestBase
         $this->roomId = !empty($data['roomId']) ? $data['roomId'] : null;
     }
 
-    public function testMe()
+    public function testGetRoom()
     {
         $this->prepareConfig();
         if ($this->apiKey) {
             ChatworkSDK::setApiKey($this->apiKey);
-            $api = new ChatworkApi();
-            $api->me();
+            $room = new ChatworkRoom($this->roomId);
+            $room->get();
             return;
         }
 

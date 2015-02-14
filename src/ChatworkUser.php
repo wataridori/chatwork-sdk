@@ -15,6 +15,8 @@ class ChatworkUser extends ChatworkBase
     protected $department = '';
     protected $avatarImageUrl = '';
 
+    protected $chatworkApi;
+
     public function __construct($account, $name = '', $avatarImageUrl = '')
     {
         if (is_array($account)) {
@@ -29,6 +31,8 @@ class ChatworkUser extends ChatworkBase
             $this->name = $name;
             $this->avatarImageUrl = $avatarImageUrl;
         }
+
+        $this->chatworkApi = new ChatworkApi();
     }
 
     public function toArray()

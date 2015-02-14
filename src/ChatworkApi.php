@@ -10,11 +10,11 @@ class ChatworkApi
     static $apiKey = '';
 
     /**
-     * @param $apiKey
+     * Constructor
      */
-    public function __construct($apiKey)
+    public function __construct()
     {
-        self::$apiKey = $apiKey;
+        self::$apiKey = ChatworkSDK::getApiKey();
     }
 
     /**
@@ -95,7 +95,7 @@ class ChatworkApi
         }
 
         return $this->api(
-            '/v1/rooms',
+            'rooms',
             ChatworkRequest::REQUEST_METHOD_POST,
             $params
         );
@@ -111,8 +111,7 @@ class ChatworkApi
     public function getRoomById($room_id)
     {
         return $this->api(
-            sprintf('/v1/rooms/%d', $room_id),
-            ChatworkRequest::REQUEST_METHOD_GET
+            sprintf('rooms/%d', $room_id)
         );
     }
 
@@ -127,7 +126,7 @@ class ChatworkApi
     public function updateRoomInfo($room_id, $params = [])
     {
         return $this->api(
-            sprintf('/v1/rooms/%d', $room_id),
+            sprintf('rooms/%d', $room_id),
             ChatworkRequest::REQUEST_METHOD_PUT,
             $params
         );
@@ -143,7 +142,7 @@ class ChatworkApi
     public function deleteRoom($room_id)
     {
         return $this->api(
-            sprintf('/v1/rooms/%d', $room_id),
+            sprintf('rooms/%d', $room_id),
             ChatworkRequest::REQUEST_METHOD_DELETE,
             ['action_type' => 'delete']
         );
@@ -159,7 +158,7 @@ class ChatworkApi
     public function leaveRoom($room_id)
     {
         return $this->api(
-            sprintf('/v1/rooms/%d', $room_id),
+            sprintf('rooms/%d', $room_id),
             ChatworkRequest::REQUEST_METHOD_DELETE,
             ['action_type' => 'leave']
         );
@@ -175,8 +174,7 @@ class ChatworkApi
     public function getRoomMembersById($room_id)
     {
         return $this->api(
-            sprintf('/v1/rooms/%d/members', $room_id),
-            ChatworkRequest::REQUEST_METHOD_GET
+            sprintf('rooms/%d/members', $room_id)
         );
     }
 
@@ -206,7 +204,7 @@ class ChatworkApi
         }
 
         return $this->api(
-            sprintf('/v1/rooms/%d', $room_id),
+            sprintf('rooms/%d', $room_id),
             ChatworkRequest::REQUEST_METHOD_PUT,
             $params
         );
@@ -223,7 +221,7 @@ class ChatworkApi
     public function getRoomMessages($room_id, $force = false)
     {
         return $this->api(
-            sprintf('/v1/rooms/%d/messages', $room_id),
+            sprintf('rooms/%d/messages', $room_id),
             ChatworkRequest::REQUEST_METHOD_GET,
             ['force' => $force ? 1 : 0]
         );
@@ -240,7 +238,7 @@ class ChatworkApi
     public function createRoomMessage($room_id, $body)
     {
         return $this->api(
-            sprintf('/v1/rooms/%d/messages', $room_id),
+            sprintf('rooms/%d/messages', $room_id),
             ChatworkRequest::REQUEST_METHOD_POST,
             ['body' => $body]
         );
@@ -257,8 +255,7 @@ class ChatworkApi
     public function getRoomMessageByMessageId($room_id, $message_id)
     {
         return $this->api(
-            sprintf('/v1/rooms/%d/messages/%d', $room_id, $message_id),
-            ChatworkRequest::REQUEST_METHOD_GET
+            sprintf('rooms/%d/messages/%d', $room_id, $message_id)
         );
     }
 
@@ -273,7 +270,7 @@ class ChatworkApi
     public function getRoomTasks($room_id, $params = [])
     {
         return $this->api(
-            sprintf('/v1/rooms/%d/tasks', $room_id),
+            sprintf('rooms/%d/tasks', $room_id),
             ChatworkRequest::REQUEST_METHOD_GET,
             $params
         );
@@ -290,8 +287,7 @@ class ChatworkApi
     public function getRoomTaskById($room_id, $task_id)
     {
         return $this->api(
-            sprintf('/v1/rooms/%d/tasks/%d', $room_id, $task_id),
-            ChatworkRequest::REQUEST_METHOD_GET
+            sprintf('rooms/%d/tasks/%d', $room_id, $task_id)
         );
     }
 
@@ -314,7 +310,7 @@ class ChatworkApi
         ];
 
         return $this->api(
-            sprintf('/v1/rooms/%d/tasks', $room_id),
+            sprintf('rooms/%d/tasks', $room_id),
             ChatworkRequest::REQUEST_METHOD_POST,
             $params
         );
@@ -331,7 +327,7 @@ class ChatworkApi
     public function getRoomFiles($room_id, $params = [])
     {
         return $this->api(
-            sprintf('/v1/rooms/%d/files', $room_id),
+            sprintf('rooms/%d/files', $room_id),
             ChatworkRequest::REQUEST_METHOD_GET,
             $params
         );
@@ -349,7 +345,7 @@ class ChatworkApi
     public function getRoomFileById($room_id, $file_id, $create_download_url = false)
     {
         return $this->api(
-            sprintf('/v1/rooms/%d/files/%d', $room_id, $file_id),
+            sprintf('rooms/%d/files/%d', $room_id, $file_id),
             ChatworkRequest::REQUEST_METHOD_GET,
             ['create_download_url' => $create_download_url ? 1 : 0]
         );
@@ -371,6 +367,6 @@ class ChatworkApi
 
         $response = $request->send();
 
-        return $response;
+        return $response['response'];
     }
 }

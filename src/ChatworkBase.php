@@ -2,7 +2,6 @@
 
 namespace wataridori\ChatworkSDK;
 
-use wataridori\ChatworkSDK\Exception\NoChatworkApiKeyException;
 use wataridori\ChatworkSDK\Exception\NoChatworkRoomException;
 
 class ChatworkBase
@@ -25,13 +24,18 @@ class ChatworkBase
     protected $message;
 
     /**
-     * @param string $apiKey
+     * @var ChatworkApi $chatworkApi
+     */
+    protected $chatworkApi;
+
+    /**
      * @param string|null $roomId
      */
-    public function __construct($apiKey = '', $roomId = null)
+    public function __construct($roomId = null)
     {
-        $this->setApiKey($apiKey);
+        $this->setApiKey(ChatworkSDK::getApiKey());
         $this->setRoomId($roomId);
+        $this->chatworkApi = new ChatworkApi();
     }
 
     /**

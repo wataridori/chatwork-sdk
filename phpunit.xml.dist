@@ -12,7 +12,7 @@
          stopOnIncomplete="false"
          stopOnSkipped="false"
          syntaxCheck="true"
-         strict="true"
+         strict="false"
          verbose="true">
     <php>
         <ini name="date.timezone" value="UTC" />

@@ -2,7 +2,35 @@
 
 namespace wataridori\ChatworkSDK;
 
-class ChatworkSDK extends ChatworkBase
+class ChatworkSDK
 {
+    /**
+     * @var string $apiKey
+     */
+    protected static $apiKey = '';
 
+    public function __construct($apiKey)
+    {
+        self::setApiKey($apiKey);
+    }
+
+    /**
+     * Get Chatwork API Key
+     *
+     * @return string
+     */
+    public static function getApiKey()
+    {
+        return self::$apiKey;
+    }
+
+    /**
+     * Set Chatwork API Key
+     *
+     * @param $apiKey
+     */
+    public static function setApiKey($apiKey)
+    {
+        self::$apiKey = $apiKey;
+    }
 }

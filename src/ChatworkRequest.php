@@ -138,7 +138,7 @@ class ChatworkRequest
 
         if ($info['http_code'] >= 400) {
             $error = $response['errors'];
-            throw new RequestFailException($error);
+            throw new RequestFailException();
         }
 
         return [
