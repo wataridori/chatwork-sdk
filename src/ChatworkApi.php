@@ -19,6 +19,7 @@ class ChatworkApi
 
     /**
      * Get user own information
+     *
      * @return array
      * @see http://developer.chatwork.com/ja/endpoint_me.html#GET-me
      */
@@ -29,6 +30,7 @@ class ChatworkApi
 
     /**
      * Get user own statics information
+     *
      * @return array
      * @see http://developer.chatwork.com/ja/endpoint_my.html#GET-my-status
      */
@@ -39,6 +41,7 @@ class ChatworkApi
 
     /**
      * Get user own task information
+     *
      * @param array $params
      * @return array
      * @see http://developer.chatwork.com/ja/endpoint_my.html#GET-my-tasks
@@ -60,6 +63,7 @@ class ChatworkApi
 
     /**
      * Get user rooms list
+     *
      * @return array
      * @see http://developer.chatwork.com/ja/endpoint_rooms.html#GET-rooms
      */
@@ -71,7 +75,7 @@ class ChatworkApi
     /**
      * Create new room
      *
-     * @param       $name
+     * @param string $name
      * @param array $members_admin_ids
      * @param array $params
      * @return array
@@ -91,113 +95,265 @@ class ChatworkApi
         }
 
         return $this->api(
-            self::HTTP_METHOD_POST,
-            $this->params[self::PARAM_ENDPOINT],
             '/v1/rooms',
-            array(),
+            ChatworkRequest::REQUEST_METHOD_POST,
             $params
         );
     }
 
     /**
-     * get specified room information
+     * Get room information
      *
-     * @param string $room_id
+     * @param int $room_id
      * @return array
-     * @throws UnauthorizedException
      * @see http://developer.chatwork.com/ja/endpoint_rooms.html#GET-rooms-room_id
      */
     public function getRoomById($room_id)
     {
         return $this->api(
-            self::HTTP_METHOD_GET,
-            $this->params[self::PARAM_ENDPOINT],
             sprintf('/v1/rooms/%d', $room_id),
-            array()
+            ChatworkRequest::REQUEST_METHOD_GET
         );
     }
 
     /**
-     * get specified room members
+     * Update room information
      *
-     * @param string $room_id
-     * @return array
-     * @throws UnauthorizedException
-     * @see http://developer.chatwork.com/ja/endpoint_rooms.html#GET-rooms-room_id-members
-     */
-    public function getRoomMembersById($room_id)
-    {
-        return $this->api(
-            self::HTTP_METHOD_GET,
-            $this->params[self::PARAM_ENDPOINT],
-            sprintf('/v1/rooms/%d/members', $room_id),
-            array()
-        );
-    }
-
-
-    /**
-     * update room meta information
-     *
-     * @param       $room_id
+     * @param int $room_id
      * @param array $params
      * @return mixed|void
-     * @throws UnauthorizedException
      * @see http://developer.chatwork.com/ja/endpoint_rooms.html#PUT-rooms-room_id
      */
-    public function updateRoomInfo($room_id, $params = array())
+    public function updateRoomInfo($room_id, $params = [])
     {
         return $this->api(
-            self::HTTP_METHOD_PUT,
-            $this->params[self::PARAM_ENDPOINT],
             sprintf('/v1/rooms/%d', $room_id),
-            array(),
+            ChatworkRequest::REQUEST_METHOD_PUT,
             $params
         );
     }
 
     /**
-     * delete room
+     * Delete room
      *
-     * @param $room_id
+     * @param int $room_id
      * @return array
-     * @throws UnauthorizedException
      * @see http://developer.chatwork.com/ja/endpoint_rooms.html#DELETE-rooms-room_id
      */
     public function deleteRoom($room_id)
     {
         return $this->api(
-            self::HTTP_METHOD_DELETE,
-            $this->params[self::PARAM_ENDPOINT],
             sprintf('/v1/rooms/%d', $room_id),
-            array(),
-            array(
-                "action_type" => "delete",
-            )
+            ChatworkRequest::REQUEST_METHOD_DELETE,
+            ['action_type' => 'delete']
         );
     }
 
     /**
-     * leave room
+     * Leave room
      *
-     * @param $room_id
+     * @param int $room_id
      * @return array
-     * @throws UnauthorizedException
      * @see http://developer.chatwork.com/ja/endpoint_rooms.html#DELETE-rooms-room_id
      */
     public function leaveRoom($room_id)
     {
         return $this->api(
-            self::HTTP_METHOD_DELETE,
-            $this->params[self::PARAM_ENDPOINT],
             sprintf('/v1/rooms/%d', $room_id),
-            array(),
-            array(
-                "action_type" => "leave",
-            )
+            ChatworkRequest::REQUEST_METHOD_DELETE,
+            ['action_type' => 'leave']
         );
     }
 
+    /**
+     * Get all members of a room
+     *
+     * @param int $room_id
+     * @return array
+     * @see http://developer.chatwork.com/ja/endpoint_rooms.html#GET-rooms-room_id-members
+     */
+    public function getRoomMembersById($room_id)
+    {
+        return $this->api(
+            sprintf('/v1/rooms/%d/members', $room_id),
+            ChatworkRequest::REQUEST_METHOD_GET
+        );
+    }
+
+    /**
+     * Update current room members
+     *
+     * @param int $room_id
+     * @param array $members_admin_ids
+     * @param array $params
+     * @return mixed|void
+     * @see http://developer.chatwork.com/ja/endpoint_rooms.html#PUT-rooms-room_id-members
+     */
+    public function updateRoomMembers($room_id, $members_admin_ids = [], $params = [])
+    {
+        $params = array_merge([
+            'members_admin_ids' => $members_admin_ids,
+        ], $params);
+
+        if (isset($params['members_member_ids'])) {
+            $params['members_admin_ids'] = join(',', $params['members_admin_ids']);
+        }
+        if (isset($params['members_member_ids'])) {
+            $params['members_member_ids'] = join(',', $params['members_member_ids']);
+        }
+        if (isset($params['members_readonly_ids'])) {
+            $params['members_readonly_ids'] = join(',', $params['members_readonly_ids']);
+        }
+
+        return $this->api(
+            sprintf('/v1/rooms/%d', $room_id),
+            ChatworkRequest::REQUEST_METHOD_PUT,
+            $params
+        );
+    }
+
+    /**
+     * Get messages of a room
+     *
+     * @param int $room_id
+     * @param bool $force
+     * @return array
+     * @see http://developer.chatwork.com/ja/endpoint_rooms.html#GET-rooms-room_id-messages
+     */
+    public function getRoomMessages($room_id, $force = false)
+    {
+        return $this->api(
+            sprintf('/v1/rooms/%d/messages', $room_id),
+            ChatworkRequest::REQUEST_METHOD_GET,
+            ['force' => $force ? 1 : 0]
+        );
+    }
+
+    /**
+     * Create a message
+     *
+     * @param int $room_id
+     * @param string $body
+     * @return array
+     * @see http://developer.chatwork.com/ja/endpoint_rooms.html#GET-rooms-room_id-messages
+     */
+    public function createRoomMessage($room_id, $body)
+    {
+        return $this->api(
+            sprintf('/v1/rooms/%d/messages', $room_id),
+            ChatworkRequest::REQUEST_METHOD_POST,
+            ['body' => $body]
+        );
+    }
+
+    /**
+     * Get a message
+     *
+     * @param int $room_id
+     * @param int $message_id
+     * @return array
+     * @see http://developer.chatwork.com/ja/endpoint_rooms.html#GET-rooms-room_id-messages-message_id
+     */
+    public function getRoomMessageByMessageId($room_id, $message_id)
+    {
+        return $this->api(
+            sprintf('/v1/rooms/%d/messages/%d', $room_id, $message_id),
+            ChatworkRequest::REQUEST_METHOD_GET
+        );
+    }
+
+    /**
+     * Get tasks of a room
+     *
+     * @param int $room_id
+     * @param array $params
+     * @return mixed|void
+     * @see http://developer.chatwork.com/ja/endpoint_rooms.html#GET-rooms-room_id-tasks
+     */
+    public function getRoomTasks($room_id, $params = [])
+    {
+        return $this->api(
+            sprintf('/v1/rooms/%d/tasks', $room_id),
+            ChatworkRequest::REQUEST_METHOD_GET,
+            $params
+        );
+    }
+
+    /**
+     * Get a task of a room
+     *
+     * @param int $room_id
+     * @param int $task_id
+     * @return mixed|void
+     * @see http://developer.chatwork.com/ja/endpoint_rooms.html#GET-rooms-room_id-tasks-task_id
+     */
+    public function getRoomTaskById($room_id, $task_id)
+    {
+        return $this->api(
+            sprintf('/v1/rooms/%d/tasks/%d', $room_id, $task_id),
+            ChatworkRequest::REQUEST_METHOD_GET
+        );
+    }
+
+    /**
+     * Add new task
+     *
+     * @param int $room_id
+     * @param array $to_ids
+     * @param string $body
+     * @param null|string $limit
+     * @return mixed|void
+     * @see http://developer.chatwork.com/ja/endpoint_rooms.html#POST-rooms-room_id-tasks
+     */
+    public function addTask($room_id, $to_ids = [], $body, $limit = null)
+    {
+        $params = [
+            'to_ids' => join(',', $to_ids),
+            'body' => $body,
+            'limit' => $limit,
+        ];
+
+        return $this->api(
+            sprintf('/v1/rooms/%d/tasks', $room_id),
+            ChatworkRequest::REQUEST_METHOD_POST,
+            $params
+        );
+    }
+
+    /**
+     * Get files of a room
+     *
+     * @param int $room_id
+     * @param array $params
+     * @return array
+     * @see http://developer.chatwork.com/ja/endpoint_rooms.html#GET-rooms-room_id-files
+     */
+    public function getRoomFiles($room_id, $params = [])
+    {
+        return $this->api(
+            sprintf('/v1/rooms/%d/files', $room_id),
+            ChatworkRequest::REQUEST_METHOD_GET,
+            $params
+        );
+    }
+
+    /**
+     * Get file of a room
+     *
+     * @param int $room_id
+     * @param int $file_id
+     * @param bool $create_download_url
+     * @return mixed|void
+     * @see http://developer.chatwork.com/ja/endpoint_rooms.html#GET-rooms-room_id-files-file_id
+     */
+    public function getRoomFileById($room_id, $file_id, $create_download_url = false)
+    {
+        return $this->api(
+            sprintf('/v1/rooms/%d/files/%d', $room_id, $file_id),
+            ChatworkRequest::REQUEST_METHOD_GET,
+            ['create_download_url' => $create_download_url ? 1 : 0]
+        );
+    }
 
     /**
      * Call Chatwork API
