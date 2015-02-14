@@ -83,6 +83,14 @@ class ChatworkBase
     }
 
     /**
+     * Reset message to empty string
+     */
+    public function resetMessage()
+    {
+        $this->setMessage('');
+    }
+
+    /**
      * @return string message
      */
     public function getMessage()
@@ -101,28 +109,26 @@ class ChatworkBase
 
     /**
      * Build a To Message
-     * @param string $userId
-     * @param string $userName
+     * @param ChatworkUser $chatworkUser
      * @param bool $newLine
      * @param bool $isPicon
      * @return string
      */
-    public function buildTo($userId, $userName = '', $newLine = true, $isPicon = false)
+    public function buildTo($chatworkUser, $newLine = true, $isPicon = false)
     {
         $key = $isPicon ? 'picon' : 'To';
-        return "[$key:$userId] $userName" . ($newLine ? "\n" : '');
+        return "[$key:$chatworkUser->accountId] $chatworkUser->name" . ($newLine ? "\n" : '');
     }
 
     /**
      * Build a To Message and append it to current Message
-     * @param string $userId
-     * @param string $userName
+     * @param ChatworkUser $chatworkUser
      * @param bool $newLine
      * @param bool $isPicon
      */
-    public function appendTo($userId, $userName = '', $newLine = true, $isPicon = false)
+    public function appendTo($chatworkUser, $newLine = true, $isPicon = false)
     {
-        $text = $this->buildTo($userId, $userName, $newLine, $isPicon);
+        $text = $this->buildTo($chatworkUser, $newLine, $isPicon);
         $this->appendMessage($text);
     }
 

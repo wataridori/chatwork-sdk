@@ -2,24 +2,31 @@
 
 namespace wataridori\ChatworkSDK;
 
+use wataridori\ChatworkSDK\Exception\ChatworkSDKException;
 use wataridori\ChatworkSDK\Helper\Text;
 
 class ChatworkRoom extends ChatworkBase
 {
-    protected $roomId = '';
-    protected $name = '';
-    protected $type = '';
-    protected $role = '';
-    protected $sticky = '';
-    protected $unreadNum = '';
-    protected $mentionNum = '';
-    protected $mytaskNum = '';
-    protected $messageNum = '';
-    protected $fileNum = '';
-    protected $taskNum = '';
-    protected $iconPath = '';
-    protected $description = '';
+    public $roomId = '';
+    public $name = '';
+    public $type = '';
+    public $role = '';
+    public $sticky = '';
+    public $unreadNum = '';
+    public $mentionNum = '';
+    public $mytaskNum = '';
+    public $messageNum = '';
+    public $fileNum = '';
+    public $taskNum = '';
+    public $iconPath = '';
+    public $description = '';
 
+    protected $listMembers = [];
+    /**
+     * Constructor
+     *
+     * @param int|array $room
+     */
     public function __construct($room)
     {
 
@@ -29,6 +36,9 @@ class ChatworkRoom extends ChatworkBase
         $this->chatworkApi = new ChatworkApi();
     }
 
+    /**
+     * @param int|array $room
+     */
     public function init($room)
     {
         if (is_array($room)) {
@@ -43,6 +53,9 @@ class ChatworkRoom extends ChatworkBase
         }
     }
 
+    /**
+     * @return array Room Information
+     */
     public function toArray()
     {
         return [
@@ -62,6 +75,11 @@ class ChatworkRoom extends ChatworkBase
         ];
     }
 
+    /**
+     * Get Room Information
+     *
+     * @return array
+     */
     public function get()
     {
         $room = $this->chatworkApi->getRoomById($this->roomId);
@@ -69,11 +87,22 @@ class ChatworkRoom extends ChatworkBase
         return $room;
     }
 
+    /**
+     * Update Room Information
+     *
+     * @param array $params
+     * @return mixed|void
+     */
     public function updateInfo($params = [])
     {
         return $this->chatworkApi->updateRoomInfo($this->roomId, $params);
     }
 
+    /**
+     * Get Members list of room
+     *
+     * @return array
+     */
     public function getMembers()
     {
         $members = [];
@@ -81,16 +110,79 @@ class ChatworkRoom extends ChatworkBase
         foreach ($results as $result) {
             $members[] = new ChatworkUser($result);
         }
+
+        $this->listMembers = $members;
+
         return $members;
     }
 
+    /**
+     * Update members list of room
+     * @param array $members_admin_ids
+     * @param array $params
+     * @return mixed|void
+     */
     public function updateMembers($members_admin_ids = [], $params = [])
     {
         return $this->chatworkApi->updateRoomMembers($this->roomId, $members_admin_ids, $params);
     }
 
+    /**
+     * Get Messages of Room
+     *
+     * @param bool $force
+     * @return array
+     */
     public function getMessages($force = false)
     {
         return $this->chatworkApi->getRoomMessages($this->roomId, $force);
+    }
+
+    /**
+     * Send Message
+     *
+     * @param null $newMessage
+     */
+    public function sendMessage($newMessage = null)
+    {
+        $message = $newMessage ? $newMessage : $this->message;
+        $this->chatworkApi->createRoomMessage($this->roomId, $message);
+    }
+
+    /**
+     * Send Message to list of members
+     *
+     * @param ChatworkUser[] $members
+     * @param string $sendMessage
+     * @throws ChatworkSDKException
+     */
+    public function sendMessageToList($members, $sendMessage)
+    {
+        $this->resetMessage();
+        foreach ($members as $member) {
+            if (!($member instanceof wataridori\ChatworkSDK\ChatworkUser)) {
+                $this->appendTo($member);
+            } else {
+                throw new ChatworkSDKException('Invalid Members list');
+            }
+        }
+        $this->appendMessage($sendMessage);
+        $this->sendMessage();
+    }
+
+    /**
+     * Send Message To All Members in Room
+     *
+     * @param null $sendMessage
+     */
+    public function sendMessageToAll($sendMessage)
+    {
+        if (!$this->listMembers) {
+            $this->getMembers();
+        }
+
+        if ($this->listMembers) {
+            $this->sendMessageToList($this->listMembers, $sendMessage);
+        }
     }
 }

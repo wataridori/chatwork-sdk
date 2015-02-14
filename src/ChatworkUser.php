@@ -6,14 +6,14 @@ use wataridori\ChatworkSDK\Helper\Text;
 
 class ChatworkUser extends ChatworkBase
 {
-    protected $accountId;
-    protected $role = '';
-    protected $name = '';
-    protected $chatworkId = '';
-    protected $organizationId = '';
-    protected $organizationName = '';
-    protected $department = '';
-    protected $avatarImageUrl = '';
+    public $accountId;
+    public $role = '';
+    public $name = '';
+    public $chatworkId = '';
+    public $organizationId = '';
+    public $organizationName = '';
+    public $department = '';
+    public $avatarImageUrl = '';
 
     protected $chatworkApi;
 

@@ -23,6 +23,7 @@ class ChatworkRoomTest extends ChatworkTestBase
             ChatworkSDK::setApiKey($this->apiKey);
             $room = new ChatworkRoom($this->roomId);
             $room->get();
+            $room->sendMessageToAll('Just a test message from Chatwork SDK for PHP');
             return;
         }
 
