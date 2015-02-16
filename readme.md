@@ -2,7 +2,7 @@ Chatwork SDK for PHP
 ==========
 
 ##### Remember that this SDK is non-official. It may not work when Chatwork update their APIs in the feature.
-##### (Although, I will try to cover all the changes from Chatwork. If something went wrong, please let me know) 
+##### (However, I will try to cover all the changes from Chatwork. If something went wrong, please let me know) 
 
 [![Build Status](https://travis-ci.org/wataridori/chatwork-sdk.svg)](https://travis-ci.org/wataridori/chatwork-sdk)
 [![Latest Stable Version](https://poser.pugx.org/wataridori/chatwork-sdk/v/stable.svg)](https://packagist.org/packages/wataridori/chatwork-sdk)
@@ -22,7 +22,7 @@ You can install and manage Chatwork SDK for PHP by using `Composer`
 composer require wataridori/chatwork-sdk
 ```
 
-or add `wataridori/chatwork-sdk` into the require section of your `composer.json` file then run `composer update`
+Or add `wataridori/chatwork-sdk` into the require section of your `composer.json` file then run `composer update`
 
 ## Usage
 
@@ -72,7 +72,7 @@ $room->sendMessageToAll('Test Message');
 $room->sendMessageToList([$member1, $member2], 'Another Test Message');
 ```
 
-The following 3 class extend from the `ChatworkBase` class. `ChatworkBase` provides you some useful function to work with messages.
+The 3 classes above are extended from the `ChatworkBase` class. `ChatworkBase` provides you some useful function to work with messages.
 You can easily build a TO message, REPLY or QUOTE message.
 ```php
 ChatworkSDK::setApiKey($apiKey);
