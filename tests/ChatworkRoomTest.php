@@ -23,8 +23,49 @@ class ChatworkRoomTest extends ChatworkTestBase
             ChatworkSDK::setApiKey($this->apiKey);
             $room = new ChatworkRoom($this->roomId);
             $room->get();
-            $room->sendMessageToAll('Just a test message from Chatwork SDK for PHP');
-            return;
+            $this->assertEquals($room->roomId, $this->roomId);
+        }
+
+        $this->assertTrue(true);
+    }
+
+    public function testGetMembers()
+    {
+        $this->prepareConfig();
+        if ($this->apiKey) {
+            ChatworkSDK::setApiKey($this->apiKey);
+            $room = new ChatworkRoom($this->roomId);
+            $members = $room->getMembers();
+            $this->assertInternalType('array', $members);
+            $checkClass = true;
+            foreach ($members as $member) {
+                if (!($member instanceof wataridori\ChatworkSDK\ChatworkUser)) {
+                    $checkClass = false;
+                }
+            }
+            $room->sendMessageToAll('Just a test message from ChatworkSDK for PHP');
+            $this->assertTrue($checkClass);
+        }
+
+        $this->assertTrue(true);
+    }
+
+    public function testGetMessages()
+    {
+        $this->prepareConfig();
+        if ($this->apiKey) {
+            ChatworkSDK::setApiKey($this->apiKey);
+            $room = new ChatworkRoom($this->roomId);
+            $messages = $room->getMessages();
+            $this->assertInternalType('array', $messages);
+            $checkClass = true;
+            foreach ($messages as $message) {
+                if (!($message instanceof wataridori\ChatworkSDK\ChatworkMessage)) {
+                    $checkClass = false;
+                }
+            }
+
+            $this->assertTrue($checkClass);
         }
 
         $this->assertTrue(true);

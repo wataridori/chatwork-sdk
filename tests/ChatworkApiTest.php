@@ -22,7 +22,54 @@ class ChatworkApiTest extends ChatworkTestBase
             ChatworkSDK::setApiKey($this->apiKey);
             $api = new ChatworkApi();
             $api->me();
-            return;
+        }
+
+        $this->assertTrue(true);
+    }
+
+    public function testGetMyStatus()
+    {
+        $this->prepareConfig();
+        if ($this->apiKey) {
+            ChatworkSDK::setApiKey($this->apiKey);
+            $api = new ChatworkApi();
+            $api->getMyStatus();
+        }
+
+        $this->assertTrue(true);
+    }
+
+    public function testGetMyTasks()
+    {
+        $this->prepareConfig();
+        if ($this->apiKey) {
+            ChatworkSDK::setApiKey($this->apiKey);
+            $api = new ChatworkApi();
+            $api->getMyTasks();
+        }
+
+        $this->assertTrue(true);
+    }
+
+    public function testGetContacts()
+    {
+        $this->prepareConfig();
+        if ($this->apiKey) {
+            ChatworkSDK::setApiKey($this->apiKey);
+            $api = new ChatworkApi();
+            $api->getContacts();
+        }
+
+        $this->assertTrue(true);
+    }
+
+    public function testGetRooms()
+    {
+        $this->prepareConfig();
+        if ($this->apiKey) {
+            ChatworkSDK::setApiKey($this->apiKey);
+            $api = new ChatworkApi();
+            $api->getRooms();
         }
 
         $this->assertTrue(true);

@@ -135,7 +135,15 @@ class ChatworkRoom extends ChatworkBase
      */
     public function getMessages($force = false)
     {
-        return $this->chatworkApi->getRoomMessages($this->roomId, $force);
+        $messages = [];
+        $results = $this->chatworkApi->getRoomMessages($this->roomId, $force);
+        if ($results) {
+            foreach ($results as $result) {
+                $messages[] = new ChatworkMessage($result);
+            }
+        }
+
+        return $messages;
     }
 
     /**
