@@ -112,26 +112,29 @@ class ChatworkBase
     /**
      * Build a To Message
      * @param ChatworkUser $chatworkUser
+     * @param bool $withName
      * @param bool $newLine
-     * @param bool $isPicon
+     * @param bool $usePicon
      * @return string
      */
-    public function buildTo($chatworkUser, $newLine = true, $isPicon = false)
+    public function buildTo($chatworkUser, $withName = true, $newLine = true, $usePicon = false)
     {
-        $key = $isPicon ? 'picon' : 'To';
-        return "[$key:$chatworkUser->accountId] $chatworkUser->name" . ($newLine ? "\n" : '');
+        $key = $usePicon ? 'picon' : 'To';
+        $name = $withName ? $chatworkUser->name : '';
+        return "[$key:$chatworkUser->accountId] $name" . ($newLine ? "\n" : ' ');
     }
 
     /**
      * Build a To Message and append it to current Message
      * @param ChatworkUser $chatworkUser
+     * @param bool $withName
      * @param bool $newLine
-     * @param bool $isPicon
+     * @param bool $usePicon
      * @return string $message
      */
-    public function appendTo($chatworkUser, $newLine = true, $isPicon = false)
+    public function appendTo($chatworkUser, $withName = true, $newLine = true, $usePicon = false)
     {
-        $text = $this->buildTo($chatworkUser, $newLine, $isPicon);
+        $text = $this->buildTo($chatworkUser, $withName, $newLine, $usePicon);
         return $this->appendMessage($text);
     }
 
@@ -182,7 +185,7 @@ class ChatworkBase
     public function buildQuote($chatworkMessage, $time = true)
     {
         $timeText = $time ? "time={$chatworkMessage->sendTime}" : '';
-        return "[qt][qtmeta aid={$chatworkMessage->account->accountId} {$timeText}]{$chatworkMessage->body}[/qt]";
+        return "[qt][qtmeta aid={$chatworkMessage->account->accountId} {$timeText}]{$chatworkMessage->body}[/qt]\n";
     }
 
     /**
@@ -209,7 +212,7 @@ class ChatworkBase
         if ($title) {
             return "[info][title]$title [/title]$message [/info]";
         }
-        return "[info]$message [/info]";
+        return "[info]$message [/info]\n";
     }
 
     /**

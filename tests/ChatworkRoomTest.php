@@ -43,7 +43,8 @@ class ChatworkRoomTest extends ChatworkTestBase
                     $checkClass = false;
                 }
             }
-            $room->sendMessageToAll('Just a test message from ChatworkSDK for PHP');
+            $room->sendMessageToAll('Just a test message from ChatworkSDK for PHP. Mention without name and new line.', false, false);
+            $room->sendMessageToList(array_slice($members, 0, 1), 'Just another test message from ChatworkSDK for PHP. Use Picon only', false, false, true);
             $this->assertTrue($checkClass);
         }
 
@@ -59,13 +60,22 @@ class ChatworkRoomTest extends ChatworkTestBase
             $messages = $room->getMessages();
             $this->assertInternalType('array', $messages);
             $checkClass = true;
+            $lastMessage = null;
             foreach ($messages as $message) {
                 if (!($message instanceof wataridori\ChatworkSDK\ChatworkMessage)) {
                     $checkClass = false;
                 }
+                $lastMessage = $message;
             }
 
             $this->assertTrue($checkClass);
+            if ($lastMessage) {
+                $room->resetMessage();
+                $room->appendReply($room->roomId, $lastMessage);
+                $room->appendQuote($lastMessage);
+                $room->appendInfo('Test Quote, Reply, Info text', 'Test from Chatwork-SDK');
+                $room->sendMessage();
+            }
         }
 
         $this->assertTrue(true);

@@ -162,14 +162,17 @@ class ChatworkRoom extends ChatworkBase
      *
      * @param ChatworkUser[] $members
      * @param string $sendMessage
+     * @param bool $withName
+     * @param bool $newLine
+     * @param bool $usePicon
      * @throws ChatworkSDKException
      */
-    public function sendMessageToList($members, $sendMessage)
+    public function sendMessageToList($members, $sendMessage, $withName = true, $newLine = true, $usePicon = false)
     {
         $this->resetMessage();
         foreach ($members as $member) {
             if (!($member instanceof wataridori\ChatworkSDK\ChatworkUser)) {
-                $this->appendTo($member);
+                $this->appendTo($member, $withName, $newLine, $usePicon);
             } else {
                 throw new ChatworkSDKException('Invalid Members list');
             }
@@ -182,15 +185,18 @@ class ChatworkRoom extends ChatworkBase
      * Send Message To All Members in Room
      *
      * @param null $sendMessage
+     * @param bool $withName
+     * @param bool $newLine
+     * @param bool $usePicon
      */
-    public function sendMessageToAll($sendMessage)
+    public function sendMessageToAll($sendMessage, $withName = true, $newLine = true, $usePicon = false)
     {
         if (!$this->listMembers) {
             $this->getMembers();
         }
 
         if ($this->listMembers) {
-            $this->sendMessageToList($this->listMembers, $sendMessage);
+            $this->sendMessageToList($this->listMembers, $sendMessage, $withName, $newLine, $usePicon);
         }
     }
 }
