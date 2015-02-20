@@ -69,7 +69,7 @@ foreach ($members as $member) {
 $room->sendMessageToAll('Test Message');
 
 // Send Message to list of members in the room
-$room->sendMessageToList([$member1, $member2], 'Another Test Message');
+$room->sendMessageToList([$member_1, $member_2], 'Another Test Message');
 ```
 
 The 3 classes above are extended from the `ChatworkBase` class. `ChatworkBase` provides you some useful function to work with messages.
@@ -83,7 +83,7 @@ if ($messages & $messages[0]) {
     // Reset Message to null string
     $room->resetMessage();
     // Append the REPLY text to current message
-    $room->appendReply($room->roomId, $lastMessage);
+    $room->appendReplyInRoom($lastMessage);
     // Append the QUOTE text to current message
     $room->appendQuote($lastMessage);
     // Append the Information Text to the current message

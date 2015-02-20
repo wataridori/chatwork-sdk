@@ -3,22 +3,21 @@
 namespace wataridori\ChatworkSDK;
 
 use wataridori\ChatworkSDK\Exception\ChatworkSDKException;
-use wataridori\ChatworkSDK\Helper\Text;
 
 class ChatworkRoom extends ChatworkBase
 {
-    public $roomId = '';
+    public $room_id = '';
     public $name = '';
     public $type = '';
     public $role = '';
     public $sticky = '';
-    public $unreadNum = '';
-    public $mentionNum = '';
-    public $mytaskNum = '';
-    public $messageNum = '';
-    public $fileNum = '';
-    public $taskNum = '';
-    public $iconPath = '';
+    public $unread_num = '';
+    public $mention_num = '';
+    public $mytask_num = '';
+    public $message_num = '';
+    public $file_num = '';
+    public $task_num = '';
+    public $icon_path = '';
     public $description = '';
 
     protected $listMembers = [];
@@ -32,7 +31,7 @@ class ChatworkRoom extends ChatworkBase
 
         $this->init($room);
 
-        parent::__construct($this->roomId);
+        parent::__construct($this->room_id);
         $this->chatworkApi = new ChatworkApi();
     }
 
@@ -43,13 +42,12 @@ class ChatworkRoom extends ChatworkBase
     {
         if (is_array($room)) {
             foreach ($room as $key => $value) {
-                $property = Text::snakeToCamel($key);
-                if (property_exists($this, $property)) {
-                    $this->$property = $value;
+                if (property_exists($this, $key)) {
+                    $this->$key = $value;
                 }
             }
         } elseif (is_numeric($room)) {
-            $this->roomId = $room;
+            $this->room_id = $room;
         }
     }
 
@@ -59,18 +57,18 @@ class ChatworkRoom extends ChatworkBase
     public function toArray()
     {
         return [
-            'roomId' => $this->roomId,
+            'room_id' => $this->room_id,
             'name' => $this->name,
             'type' => $this->type,
             'role' => $this->role,
             'sticky' => $this->sticky,
-            'unread_num' => $this->unreadNum,
-            'mention_num' => $this->mentionNum,
-            'mytask_num' => $this->mytaskNum,
-            'message_num' => $this->messageNum,
-            'file_num' => $this->fileNum,
-            'task_num' => $this->taskNum,
-            'icon_path' => $this->iconPath,
+            'unread_num' => $this->unread_num,
+            'mention_num' => $this->mention_num,
+            'mytask_num' => $this->mytask_num,
+            'message_num' => $this->message_num,
+            'file_num' => $this->file_num,
+            'task_num' => $this->task_num,
+            'icon_path' => $this->icon_path,
             'description' => $this->description,
         ];
     }
@@ -82,7 +80,7 @@ class ChatworkRoom extends ChatworkBase
      */
     public function get()
     {
-        $room = $this->chatworkApi->getRoomById($this->roomId);
+        $room = $this->chatworkApi->getRoomById($this->room_id);
         $this->init($room);
         return $room;
     }
@@ -95,7 +93,7 @@ class ChatworkRoom extends ChatworkBase
      */
     public function updateInfo($params = [])
     {
-        return $this->chatworkApi->updateRoomInfo($this->roomId, $params);
+        return $this->chatworkApi->updateRoomInfo($this->room_id, $params);
     }
 
     /**
@@ -106,7 +104,7 @@ class ChatworkRoom extends ChatworkBase
     public function getMembers()
     {
         $members = [];
-        $results = $this->chatworkApi->getRoomMembersById($this->roomId);
+        $results = $this->chatworkApi->getRoomMembersById($this->room_id);
         foreach ($results as $result) {
             $members[] = new ChatworkUser($result);
         }
@@ -124,7 +122,7 @@ class ChatworkRoom extends ChatworkBase
      */
     public function updateMembers($members_admin_ids = [], $params = [])
     {
-        return $this->chatworkApi->updateRoomMembers($this->roomId, $members_admin_ids, $params);
+        return $this->chatworkApi->updateRoomMembers($this->room_id, $members_admin_ids, $params);
     }
 
     /**
@@ -136,7 +134,7 @@ class ChatworkRoom extends ChatworkBase
     public function getMessages($force = false)
     {
         $messages = [];
-        $results = $this->chatworkApi->getRoomMessages($this->roomId, $force);
+        $results = $this->chatworkApi->getRoomMessages($this->room_id, $force);
         if ($results) {
             foreach ($results as $result) {
                 $messages[] = new ChatworkMessage($result);
@@ -154,7 +152,7 @@ class ChatworkRoom extends ChatworkBase
     public function sendMessage($newMessage = null)
     {
         $message = $newMessage ? $newMessage : $this->message;
-        $this->chatworkApi->createRoomMessage($this->roomId, $message);
+        $this->chatworkApi->createRoomMessage($this->room_id, $message);
     }
 
     /**
@@ -198,5 +196,30 @@ class ChatworkRoom extends ChatworkBase
         if ($this->listMembers) {
             $this->sendMessageToList($this->listMembers, $sendMessage, $withName, $newLine, $usePicon);
         }
+    }
+
+    /**
+     * Build a Reply Message
+     *
+     * @param ChatworkMessage $chatworkMessage
+     * @param bool $newLine
+     * @return string
+     */
+    public function buildReplyInRoom($chatworkMessage, $newLine = true)
+    {
+        return $this->buildReply($this->room_id, $chatworkMessage, $newLine);
+    }
+
+    /**
+     * Build a Reply Message and append it to current Message
+     *
+     * @param ChatworkMessage $chatworkMessage
+     * @param bool $newLine
+     * @return string $message
+     * @throws \Exception
+     */
+    public function appendReplyInRoom($chatworkMessage, $newLine = true)
+    {
+        return $this->appendReply($this->room_id, $chatworkMessage, $newLine);
     }
 }

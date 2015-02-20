@@ -23,7 +23,7 @@ class ChatworkRoomTest extends ChatworkTestBase
             ChatworkSDK::setApiKey($this->apiKey);
             $room = new ChatworkRoom($this->roomId);
             $room->get();
-            $this->assertEquals($room->roomId, $this->roomId);
+            $this->assertEquals($room->room_id, $this->roomId);
         }
 
         $this->assertTrue(true);
@@ -35,6 +35,7 @@ class ChatworkRoomTest extends ChatworkTestBase
         if ($this->apiKey) {
             ChatworkSDK::setApiKey($this->apiKey);
             $room = new ChatworkRoom($this->roomId);
+            $room->get();
             $members = $room->getMembers();
             $this->assertInternalType('array', $members);
             $checkClass = true;
@@ -71,7 +72,7 @@ class ChatworkRoomTest extends ChatworkTestBase
             $this->assertTrue($checkClass);
             if ($lastMessage) {
                 $room->resetMessage();
-                $room->appendReply($room->roomId, $lastMessage);
+                $room->appendReplyInRoom($lastMessage);
                 $room->appendQuote($lastMessage);
                 $room->appendInfo('Test Quote, Reply, Info text', 'Test from Chatwork-SDK');
                 $room->sendMessage();

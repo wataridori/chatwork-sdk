@@ -1,7 +1,6 @@
 {
     "name": "wataridori/chatwork-sdk",
     "description": "Just a non-official SDK for Chatwork",
-    "version": "v0.1.0",
     "license": "GPL-3.0",
     "authors": [
         {

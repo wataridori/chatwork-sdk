@@ -121,7 +121,7 @@ class ChatworkBase
     {
         $key = $usePicon ? 'picon' : 'To';
         $name = $withName ? $chatworkUser->name : '';
-        return "[$key:$chatworkUser->accountId] $name" . ($newLine ? "\n" : ' ');
+        return "[$key:$chatworkUser->account_id] $name" . ($newLine ? "\n" : ' ');
     }
 
     /**
@@ -157,7 +157,7 @@ class ChatworkBase
             }
         }
 
-        return "[rp aid={$chatworkMessage->account->accountId} to={$roomId}-{$chatworkMessage->messageId}] {$chatworkMessage->account->name}" . ($newLine ? "\n" : '');
+        return "[rp aid={$chatworkMessage->account->account_id} to={$roomId}-{$chatworkMessage->message_id}] {$chatworkMessage->account->name}" . ($newLine ? "\n" : '');
     }
 
     /**
@@ -184,8 +184,8 @@ class ChatworkBase
      */
     public function buildQuote($chatworkMessage, $time = true)
     {
-        $timeText = $time ? "time={$chatworkMessage->sendTime}" : '';
-        return "[qt][qtmeta aid={$chatworkMessage->account->accountId} {$timeText}]{$chatworkMessage->body}[/qt]\n";
+        $timeText = $time ? "time={$chatworkMessage->send_time}" : '';
+        return "[qt][qtmeta aid={$chatworkMessage->account->account_id} {$timeText}]{$chatworkMessage->body}[/qt]\n";
     }
 
     /**
