@@ -46,7 +46,7 @@ class ChatworkUser extends ChatworkBase
     public function toArray()
     {
         return [
-            'account_id' => $this->accountId,
+            'account_id' => $this->account_id,
             'role' => $this->role,
             'name' => $this->name,
             'chatwork_id' => $this->chatwork_id,
