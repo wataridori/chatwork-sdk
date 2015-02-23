@@ -1,5 +1,6 @@
 vendor
 composer.lock
 .idea
+.DS_Store
 phpunit.phar
 tests/fixtures/config.json
