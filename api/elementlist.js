@@ -1,0 +1,3 @@
+
+var ApiGen = ApiGen || {};
+ApiGen.elements = [["c","wataridori\\ChatworkSDK\\ChatworkApi"],["c","wataridori\\ChatworkSDK\\ChatworkBase"],["c","wataridori\\ChatworkSDK\\ChatworkMessage"],["c","wataridori\\ChatworkSDK\\ChatworkRequest"],["c","wataridori\\ChatworkSDK\\ChatworkRoom"],["c","wataridori\\ChatworkSDK\\ChatworkSDK"],["c","wataridori\\ChatworkSDK\\ChatworkUser"],["c","wataridori\\ChatworkSDK\\Exception\\ChatworkSDKException"],["c","wataridori\\ChatworkSDK\\Exception\\NoChatworkApiKeyException"],["c","wataridori\\ChatworkSDK\\Exception\\NoChatworkRoomException"],["c","wataridori\\ChatworkSDK\\Exception\\RequestFailException"]];
