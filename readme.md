@@ -78,8 +78,8 @@ You can easily build a TO message, REPLY or QUOTE message.
 ChatworkSDK::setApiKey($apiKey);
 $room = new ChatworkRoom($roomId);
 $messages = $room->getMessages();
-if ($messages & $messages[0]) {
-    $firstMessage = $messages[0];
+if ($messages & !empty($messages[0])) {
+    $lastMessage = $messages[0];
     // Reset Message to null string
     $room->resetMessage();
     // Append the REPLY text to current message
