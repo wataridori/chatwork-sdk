@@ -210,9 +210,9 @@ class ChatworkBase
     public function buildInfo($message, $title = '')
     {
         if ($title) {
-            return "[info][title]$title [/title]$message [/info]";
+            return "[info][title]{$title}[/title]{$message}[/info]";
         }
-        return "[info]$message [/info]\n";
+        return "[info]{$message}[/info]\n";
     }
 
     /**
@@ -225,5 +225,26 @@ class ChatworkBase
     {
         $info = $this->buildInfo($message, $title);
         return $this->appendMessage($info);
+    }
+
+    /**
+     * Build Code tag
+     * @param string $message
+     * @return string
+     */
+    public function buildCode($message)
+    {
+        return "[code]{$message}[/code]";
+    }
+
+    /**
+     * Build Code tag and append it to current message
+     * @param string $message
+     * @return string $message
+     */
+    public function appendCode($message)
+    {
+        $code = $this->buildInfo($message);
+        return $this->appendMessage($code);
     }
 }

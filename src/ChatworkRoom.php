@@ -222,4 +222,28 @@ class ChatworkRoom extends ChatworkBase
     {
         return $this->appendReply($this->room_id, $chatworkMessage, $newLine);
     }
+
+    /**
+     * Reply list messages in room
+     *
+     * @param ChatworkMessage|ChatworkMessage[] $chatworkMessages
+     * @param string $msg
+     * @param bool $newLine
+     * @param bool $resetMessage
+     */
+    public function reply($chatworkMessages, $msg, $newLine = true, $resetMessage = true)
+    {
+        if ($resetMessage) {
+            $this->resetMessage();
+        }
+        if ($chatworkMessages instanceof ChatworkMessage) {
+            $this->appendReplyInRoom($chatworkMessages, $newLine);
+        } else {
+            foreach ($chatworkMessages as $chatworkMessage) {
+                $this->appendReplyInRoom($chatworkMessage, $newLine);
+            }
+        }
+        $this->appendMessage($msg);
+        $this->sendMessage();
+    }
 }
