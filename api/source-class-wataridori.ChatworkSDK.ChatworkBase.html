@@ -297,9 +297,9 @@
 </span><span id="210" class="l"><a href="#210">210 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> buildInfo(<span class="php-var">$message</span>, <span class="php-var">$title</span> = <span class="php-quote">''</span>)
 </span><span id="211" class="l"><a href="#211">211 </a>    {
 </span><span id="212" class="l"><a href="#212">212 </a>        <span class="php-keyword1">if</span> (<span class="php-var">$title</span>) {
-</span><span id="213" class="l"><a href="#213">213 </a>            <span class="php-keyword1">return</span> <span class="php-quote">&quot;[info][title]</span><span class="php-var">$title</span><span class="php-quote"> [/title]</span><span class="php-var">$message</span><span class="php-quote"> [/info]&quot;</span>;
+</span><span id="213" class="l"><a href="#213">213 </a>            <span class="php-keyword1">return</span> <span class="php-quote">&quot;[info][title]</span><span class="php-var">{$title}</span><span class="php-quote">[/title]</span><span class="php-var">{$message}</span><span class="php-quote">[/info]&quot;</span>;
 </span><span id="214" class="l"><a href="#214">214 </a>        }
-</span><span id="215" class="l"><a href="#215">215 </a>        <span class="php-keyword1">return</span> <span class="php-quote">&quot;[info]</span><span class="php-var">$message</span><span class="php-quote"> [/info]\n&quot;</span>;
+</span><span id="215" class="l"><a href="#215">215 </a>        <span class="php-keyword1">return</span> <span class="php-quote">&quot;[info]</span><span class="php-var">{$message}</span><span class="php-quote">[/info]\n&quot;</span>;
 </span><span id="216" class="l"><a href="#216">216 </a>    }
 </span><span id="217" class="l"><a href="#217">217 </a>
 </span><span id="218" class="l"><a href="#218">218 </a>    <span class="php-comment">/**
@@ -313,7 +313,28 @@
 </span><span id="226" class="l"><a href="#226">226 </a>        <span class="php-var">$info</span> = <span class="php-var">$this</span>-&gt;buildInfo(<span class="php-var">$message</span>, <span class="php-var">$title</span>);
 </span><span id="227" class="l"><a href="#227">227 </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;appendMessage(<span class="php-var">$info</span>);
 </span><span id="228" class="l"><a href="#228">228 </a>    }
-</span><span id="229" class="l"><a href="#229">229 </a>}</span></code></pre>
+</span><span id="229" class="l"><a href="#229">229 </a>
+</span><span id="230" class="l"><a href="#230">230 </a>    <span class="php-comment">/**
+</span></span><span id="231" class="l"><a href="#231">231 </a><span class="php-comment">     * Build Code tag
+</span></span><span id="232" class="l"><a href="#232">232 </a><span class="php-comment">     * @param string $message
+</span></span><span id="233" class="l"><a href="#233">233 </a><span class="php-comment">     * @return string
+</span></span><span id="234" class="l"><a href="#234">234 </a><span class="php-comment">     */</span>
+</span><span id="235" class="l"><a href="#235">235 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> buildCode(<span class="php-var">$message</span>)
+</span><span id="236" class="l"><a href="#236">236 </a>    {
+</span><span id="237" class="l"><a href="#237">237 </a>        <span class="php-keyword1">return</span> <span class="php-quote">&quot;[code]</span><span class="php-var">{$message}</span><span class="php-quote">[/code]&quot;</span>;
+</span><span id="238" class="l"><a href="#238">238 </a>    }
+</span><span id="239" class="l"><a href="#239">239 </a>
+</span><span id="240" class="l"><a href="#240">240 </a>    <span class="php-comment">/**
+</span></span><span id="241" class="l"><a href="#241">241 </a><span class="php-comment">     * Build Code tag and append it to current message
+</span></span><span id="242" class="l"><a href="#242">242 </a><span class="php-comment">     * @param string $message
+</span></span><span id="243" class="l"><a href="#243">243 </a><span class="php-comment">     * @return string $message
+</span></span><span id="244" class="l"><a href="#244">244 </a><span class="php-comment">     */</span>
+</span><span id="245" class="l"><a href="#245">245 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> appendCode(<span class="php-var">$message</span>)
+</span><span id="246" class="l"><a href="#246">246 </a>    {
+</span><span id="247" class="l"><a href="#247">247 </a>        <span class="php-var">$code</span> = <span class="php-var">$this</span>-&gt;buildCode(<span class="php-var">$message</span>);
+</span><span id="248" class="l"><a href="#248">248 </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;appendMessage(<span class="php-var">$code</span>);
+</span><span id="249" class="l"><a href="#249">249 </a>    }
+</span><span id="250" class="l"><a href="#250">250 </a>}</span></code></pre>
 	</div>
 
 	<div id="footer">
