@@ -244,7 +244,7 @@ class ChatworkBase
      */
     public function appendCode($message)
     {
-        $code = $this->buildInfo($message);
+        $code = $this->buildCode($message);
         return $this->appendMessage($code);
     }
 }
