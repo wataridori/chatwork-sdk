@@ -31,7 +31,7 @@ class ChatworkUser extends ChatworkBase
                 }
             }
         } elseif (is_numeric($account)) {
-            $this->accountId = $account;
+            $this->account_id = $account;
             $this->name = $name;
             $this->avatar_image_url = $avatar_image_url;
         }

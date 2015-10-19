@@ -4,3 +4,4 @@ composer.lock
 .DS_Store
 phpunit.phar
 tests/fixtures/config.json
+.phpintel
