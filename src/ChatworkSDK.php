@@ -5,7 +5,7 @@ namespace wataridori\ChatworkSDK;
 class ChatworkSDK
 {
     /**
-     * @var string $apiKey
+     * @var string
      */
     protected static $apiKey = '';
 
@@ -15,7 +15,7 @@ class ChatworkSDK
     }
 
     /**
-     * Get Chatwork API Key
+     * Get Chatwork API Key.
      *
      * @return string
      */
@@ -25,7 +25,7 @@ class ChatworkSDK
     }
 
     /**
-     * Set Chatwork API Key
+     * Set Chatwork API Key.
      *
      * @param $apiKey
      */

@@ -2,8 +2,6 @@
 
 namespace wataridori\ChatworkSDK;
 
-use wataridori\ChatworkSDK\Helper\Text;
-
 class ChatworkUser extends ChatworkBase
 {
     public $account_id;
@@ -40,7 +38,8 @@ class ChatworkUser extends ChatworkBase
     }
 
     /**
-     * User information in array
+     * User information in array.
+     *
      * @return array
      */
     public function toArray()
@@ -53,7 +52,7 @@ class ChatworkUser extends ChatworkBase
             'organization_id' => $this->organization_id,
             'organization_name' => $this->organization_name,
             'department' => $this->department,
-            'avatar_image_url' => $this->avatar_image_url
+            'avatar_image_url' => $this->avatar_image_url,
         ];
     }
 }

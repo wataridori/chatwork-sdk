@@ -21,14 +21,14 @@ class ChatworkRoom extends ChatworkBase
     public $description = '';
 
     protected $listMembers = [];
+
     /**
-     * Constructor
+     * Constructor.
      *
      * @param int|array $room
      */
     public function __construct($room)
     {
-
         $this->init($room);
 
         parent::__construct($this->room_id);
@@ -74,7 +74,7 @@ class ChatworkRoom extends ChatworkBase
     }
 
     /**
-     * Get Room Information
+     * Get Room Information.
      *
      * @return array
      */
@@ -86,9 +86,10 @@ class ChatworkRoom extends ChatworkBase
     }
 
     /**
-     * Update Room Information
+     * Update Room Information.
      *
      * @param array $params
+     *
      * @return mixed|void
      */
     public function updateInfo($params = [])
@@ -97,7 +98,7 @@ class ChatworkRoom extends ChatworkBase
     }
 
     /**
-     * Get Members list of room
+     * Get Members list of room.
      *
      * @return array
      */
@@ -115,9 +116,11 @@ class ChatworkRoom extends ChatworkBase
     }
 
     /**
-     * Update members list of room
+     * Update members list of room.
+     *
      * @param array $members_admin_ids
      * @param array $params
+     *
      * @return mixed|void
      */
     public function updateMembers($members_admin_ids = [], $params = [])
@@ -126,9 +129,10 @@ class ChatworkRoom extends ChatworkBase
     }
 
     /**
-     * Get Messages of Room
+     * Get Messages of Room.
      *
      * @param bool $force
+     *
      * @return array
      */
     public function getMessages($force = false)
@@ -145,7 +149,7 @@ class ChatworkRoom extends ChatworkBase
     }
 
     /**
-     * Send Message
+     * Send Message.
      *
      * @param null $newMessage
      */
@@ -156,13 +160,14 @@ class ChatworkRoom extends ChatworkBase
     }
 
     /**
-     * Send Message to list of members
+     * Send Message to list of members.
      *
      * @param ChatworkUser[] $members
      * @param string $sendMessage
      * @param bool $withName
      * @param bool $newLine
      * @param bool $usePicon
+     *
      * @throws ChatworkSDKException
      */
     public function sendMessageToList($members, $sendMessage, $withName = true, $newLine = true, $usePicon = false)
@@ -180,7 +185,7 @@ class ChatworkRoom extends ChatworkBase
     }
 
     /**
-     * Send Message To All Members in Room
+     * Send Message To All Members in Room.
      *
      * @param null $sendMessage
      * @param bool $withName
@@ -199,10 +204,11 @@ class ChatworkRoom extends ChatworkBase
     }
 
     /**
-     * Build a Reply Message
+     * Build a Reply Message.
      *
      * @param ChatworkMessage $chatworkMessage
      * @param bool $newLine
+     *
      * @return string
      */
     public function buildReplyInRoom($chatworkMessage, $newLine = true)
@@ -211,12 +217,14 @@ class ChatworkRoom extends ChatworkBase
     }
 
     /**
-     * Build a Reply Message and append it to current Message
+     * Build a Reply Message and append it to current Message.
      *
      * @param ChatworkMessage $chatworkMessage
      * @param bool $newLine
-     * @return string $message
+     *
      * @throws \Exception
+     *
+     * @return string $message
      */
     public function appendReplyInRoom($chatworkMessage, $newLine = true)
     {
@@ -224,7 +232,7 @@ class ChatworkRoom extends ChatworkBase
     }
 
     /**
-     * Reply list messages in room
+     * Reply list messages in room.
      *
      * @param ChatworkMessage|ChatworkMessage[] $chatworkMessages
      * @param string $msg

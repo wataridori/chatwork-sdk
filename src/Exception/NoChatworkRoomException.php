@@ -2,7 +2,6 @@
 
 namespace wataridori\ChatworkSDK\Exception;
 
-
 class NoChatworkRoomException extends \Exception
 {
     public function getName()

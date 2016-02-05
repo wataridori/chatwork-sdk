@@ -7,24 +7,26 @@ use wataridori\ChatworkSDK\Exception\NoChatworkRoomException;
 class ChatworkBase
 {
     /**
-     * Chatwork Api Key
-     * @var $apiKey
+     * Chatwork Api Key.
+     *
+     * @var
      */
     protected $apiKey;
 
     /**
-     * Chatwork Room Id
-     * @var $roomId
+     * Chatwork Room Id.
+     *
+     * @var
      */
     protected $roomId;
 
     /**
-     * @var $message
+     * @var
      */
     protected $message;
 
     /**
-     * @var ChatworkApi $chatworkApi
+     * @var
      */
     protected $chatworkApi;
 
@@ -39,7 +41,8 @@ class ChatworkBase
     }
 
     /**
-     * Set api key
+     * Set api key.
+     *
      * @param string $apiKey
      */
     public function setApiKey($apiKey)
@@ -48,7 +51,8 @@ class ChatworkBase
     }
 
     /**
-     * Get ApiKey
+     * Get ApiKey.
+     *
      * @return string
      */
     public function getApiKey()
@@ -57,7 +61,8 @@ class ChatworkBase
     }
 
     /**
-     * Set RoomId
+     * Set RoomId.
+     *
      * @param string $roomId
      */
     public function setRoomId($roomId)
@@ -74,7 +79,8 @@ class ChatworkBase
     }
 
     /**
-     * Set message
+     * Set message.
+     *
      * @param string $message
      */
     public function setMessage($message)
@@ -83,7 +89,7 @@ class ChatworkBase
     }
 
     /**
-     * Reset message to empty string
+     * Reset message to empty string.
      */
     public function resetMessage()
     {
@@ -99,8 +105,10 @@ class ChatworkBase
     }
 
     /**
-     * Append inputted text to current message
+     * Append inputted text to current message.
+     *
      * @param string $appendText
+     *
      * @return string $message
      */
     public function appendMessage($appendText)
@@ -110,11 +118,13 @@ class ChatworkBase
     }
 
     /**
-     * Build a To Message
+     * Build a To Message.
+     *
      * @param ChatworkUser $chatworkUser
      * @param bool $withName
      * @param bool $newLine
      * @param bool $usePicon
+     *
      * @return string
      */
     public function buildTo($chatworkUser, $withName = true, $newLine = true, $usePicon = false)
@@ -125,11 +135,13 @@ class ChatworkBase
     }
 
     /**
-     * Build a To Message and append it to current Message
+     * Build a To Message and append it to current Message.
+     *
      * @param ChatworkUser $chatworkUser
      * @param bool $withName
      * @param bool $newLine
      * @param bool $usePicon
+     *
      * @return string $message
      */
     public function appendTo($chatworkUser, $withName = true, $newLine = true, $usePicon = false)
@@ -139,19 +151,21 @@ class ChatworkBase
     }
 
     /**
-     * Build a Reply Message
+     * Build a Reply Message.
      *
      * @param string $roomId
      * @param ChatworkMessage $chatworkMessage
      * @param bool $newLine
-     * @return string
+     *
      * @throws NoChatworkRoomException
+     *
+     * @return string
      */
     public function buildReply($roomId, $chatworkMessage, $newLine = true)
     {
         if (!$roomId) {
             if (!$this->roomId) {
-                throw new NoChatworkRoomException;
+                throw new NoChatworkRoomException();
             } else {
                 $roomId = $this->roomId;
             }
@@ -161,13 +175,15 @@ class ChatworkBase
     }
 
     /**
-     * Build a Reply Message and append it to current Message
+     * Build a Reply Message and append it to current Message.
      *
      * @param string $roomId
      * @param ChatworkMessage $chatworkMessage
      * @param bool $newLine
-     * @return string $message
+     *
      * @throws \Exception
+     *
+     * @return string $message
      */
     public function appendReply($roomId, $chatworkMessage, $newLine = true)
     {
@@ -176,10 +192,11 @@ class ChatworkBase
     }
 
     /**
-     * Build quote message
+     * Build quote message.
      *
      * @param ChatworkMessage $chatworkMessage
      * @param bool $time
+     *
      * @return string
      */
     public function buildQuote($chatworkMessage, $time = true)
@@ -189,10 +206,11 @@ class ChatworkBase
     }
 
     /**
-     * Build quote message and apply it to current Message
+     * Build quote message and apply it to current Message.
      *
      * @param ChatworkMessage $chatworkMessage
      * @param bool $time
+     *
      * @return string
      */
     public function appendQuote($chatworkMessage, $time = true)
@@ -202,9 +220,11 @@ class ChatworkBase
     }
 
     /**
-     * Build Information tag
+     * Build Information tag.
+     *
      * @param string $message
      * @param string $title
+     *
      * @return string
      */
     public function buildInfo($message, $title = '')
@@ -216,9 +236,11 @@ class ChatworkBase
     }
 
     /**
-     * Build Information tag and append it to current message
+     * Build Information tag and append it to current message.
+     *
      * @param string $message
      * @param string $title
+     *
      * @return string $message
      */
     public function appendInfo($message, $title = '')
@@ -228,8 +250,10 @@ class ChatworkBase
     }
 
     /**
-     * Build Code tag
+     * Build Code tag.
+     *
      * @param string $message
+     *
      * @return string
      */
     public function buildCode($message)
@@ -238,8 +262,10 @@ class ChatworkBase
     }
 
     /**
-     * Build Code tag and append it to current message
+     * Build Code tag and append it to current message.
+     *
      * @param string $message
+     *
      * @return string $message
      */
     public function appendCode($message)

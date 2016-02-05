@@ -6,7 +6,6 @@ use wataridori\ChatworkSDK\Exception\RequestFailException;
 
 class ChatworkRequest
 {
-
     const REQUEST_METHOD_GET = 'GET';
     const REQUEST_METHOD_POST = 'POST';
     const REQUEST_METHOD_PUT = 'PUT';
@@ -15,37 +14,43 @@ class ChatworkRequest
     const CHATWORK_API_LINK = 'https://api.chatwork.com/';
 
     /**
-     * Default Chatwork api version
+     * Default Chatwork api version.
+     *
      * @var string
      */
     protected $apiVersion = 'v1';
 
     /**
-     * Request Method
+     * Request Method.
+     *
      * @var string
      */
     protected $method;
 
     /**
-     * Request End point
+     * Request End point.
+     *
      * @var string
      */
     protected $endPoint;
 
     /**
-     * Request Params
+     * Request Params.
+     *
      * @var array
      */
     protected $params = [];
 
     /**
-     * Chatwork Api Key
+     * Chatwork Api Key.
+     *
      * @var string
      */
     protected $apiKey;
 
     /**
-     * Constructor
+     * Constructor.
+     *
      * @param $apiKey
      * @param string $method
      */
@@ -56,7 +61,8 @@ class ChatworkRequest
     }
 
     /**
-     * Set end point
+     * Set end point.
+     *
      * @param string $endPoint
      */
     public function setEndPoint($endPoint)
@@ -65,7 +71,8 @@ class ChatworkRequest
     }
 
     /**
-     * Set Params
+     * Set Params.
+     *
      * @param string $params
      */
     public function setParams($params)
@@ -74,7 +81,8 @@ class ChatworkRequest
     }
 
     /**
-     * Set Method
+     * Set Method.
+     *
      * @param string $method
      */
     public function setMethod($method)
@@ -83,7 +91,8 @@ class ChatworkRequest
     }
 
     /**
-     * Get header
+     * Get header.
+     *
      * @return string
      */
     public function getHeader()
@@ -92,7 +101,8 @@ class ChatworkRequest
     }
 
     /**
-     * Get url
+     * Get url.
+     *
      * @return string
      */
     protected function buildUrl()
@@ -101,9 +111,11 @@ class ChatworkRequest
     }
 
     /**
-     * Send Request to Chatwork
-     * @return array
+     * Send Request to Chatwork.
+     *
      * @throws RequestFailException
+     *
+     * @return array
      */
     public function send()
     {
@@ -149,7 +161,7 @@ class ChatworkRequest
 
         return [
             'http_code' => $info['http_code'],
-            'response' => $response
+            'response' => $response,
         ];
     }
 }

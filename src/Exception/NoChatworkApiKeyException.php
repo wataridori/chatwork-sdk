@@ -2,7 +2,6 @@
 
 namespace wataridori\ChatworkSDK\Exception;
 
-
 class NoChatworkApiKeyException extends \Exception
 {
     public function getName()

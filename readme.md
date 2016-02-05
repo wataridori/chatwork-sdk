@@ -4,6 +4,7 @@ Chatwork SDK for PHP
 ##### Remember that this SDK is non-official. It may not work when Chatwork update their APIs in the feature.
 ##### (However, I will try to cover all the changes from Chatwork. If something goes wrong, please let me know) 
 
+[![StyleCI](https://styleci.io/repos/28799105/shield)](https://styleci.io/repos/28799105)
 [![Build Status](https://travis-ci.org/wataridori/chatwork-sdk.svg)](https://travis-ci.org/wataridori/chatwork-sdk)
 [![Latest Stable Version](https://poser.pugx.org/wataridori/chatwork-sdk/v/stable.svg)](https://packagist.org/packages/wataridori/chatwork-sdk)
 [![Total Downloads](https://poser.pugx.org/wataridori/chatwork-sdk/downloads)](https://packagist.org/packages/wataridori/chatwork-sdk)
