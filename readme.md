@@ -31,9 +31,12 @@ Or add `wataridori/chatwork-sdk` into the require section of your `composer.json
 ##### Pass your key to `ChatworkSDK` class.
 ```php
 ChatworkSDK::setApiKey($apiKey);
+```
 
-// If you have problems with the SSL Certificate Verification, you can turn it off by the following setting.
-ChatworkSDK::setSslVerificationMode(false); // Not recommend. Only do this when you have problems with the request
+If you have problems with the SSL Certificate Verification, you can turn it off by the following setting.
+```php
+// Not recommend. Only do this when you have problems with the request
+ChatworkSDK::setSslVerificationMode(false);
 ```
 
 Now you can easily use many functions to access [Chatwork API Endpoints](http://developer.chatwork.com/ja/endpoints.html).

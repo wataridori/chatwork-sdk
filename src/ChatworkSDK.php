@@ -37,7 +37,7 @@ class ChatworkSDK
     }
 
     /**
-     * Get SSL verfication mode
+     * Get SSL verfication mode.
      *
      * @return string
      */
@@ -47,7 +47,7 @@ class ChatworkSDK
     }
 
     /**
-     * Set SSL verfication mode
+     * Set SSL verfication mode.
      *
      * @param $sslVerificationMode
      */
