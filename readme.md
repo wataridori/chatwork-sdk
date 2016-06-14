@@ -2,7 +2,7 @@ Chatwork SDK for PHP
 ==========
 ##### [API Docs](http://wataridori.github.io/chatwork-sdk/api/index.html)
 ##### Remember that this SDK is non-official. It may not work when Chatwork update their APIs in the feature.
-##### (However, I will try to cover all the changes from Chatwork. If something goes wrong, please let me know) 
+##### (However, I will try to cover all the changes from Chatwork. If something goes wrong, please let me know)
 
 [![StyleCI](https://styleci.io/repos/28799105/shield)](https://styleci.io/repos/28799105)
 [![Build Status](https://travis-ci.org/wataridori/chatwork-sdk.svg)](https://travis-ci.org/wataridori/chatwork-sdk)
@@ -31,6 +31,9 @@ Or add `wataridori/chatwork-sdk` into the require section of your `composer.json
 ##### Pass your key to `ChatworkSDK` class.
 ```php
 ChatworkSDK::setApiKey($apiKey);
+
+// If you have problems with the SSL Certificate Verification, you can turn it off by the following setting.
+ChatworkSDK::setSslVerificationMode(false); // Not recommend. Only do this when you have problems with the request
 ```
 
 Now you can easily use many functions to access [Chatwork API Endpoints](http://developer.chatwork.com/ja/endpoints.html).
@@ -94,8 +97,8 @@ if ($messages & !empty($messages[0])) {
 }
 ```
 
-##### Check ChatworkSDK functions list [here](http://wataridori.github.io/chatwork-sdk/api/class-wataridori.ChatworkSDK.ChatworkApi.html) for further details and usages. 
- 
+##### Check ChatworkSDK functions list [here](http://wataridori.github.io/chatwork-sdk/api/class-wataridori.ChatworkSDK.ChatworkApi.html) for further details and usages.
+
 ## Run test
 * Create a file named `config.json` inside the `tests/fixtures/` folder.
 * Input your API Key, and a test Room into `config.json` file. It should look like this:

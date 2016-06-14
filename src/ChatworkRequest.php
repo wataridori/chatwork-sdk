@@ -151,6 +151,9 @@ class ChatworkRequest
         }
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        if (!ChatworkSDK::getSslVerificationMode()) {
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+        }
         $response = json_decode(curl_exec($curl), 1);
         $info = curl_getinfo($curl);
         curl_close($curl);
