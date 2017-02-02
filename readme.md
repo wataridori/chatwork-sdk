@@ -25,12 +25,6 @@ composer require wataridori/chatwork-sdk
 
 Or add `wataridori/chatwork-sdk` into the require section of your `composer.json` file then run `composer update`
 
-## Versions
-| Chatwork API | Chatwork-SDK |
-|:------------:|:------------:|
-| v1 | 0.1.x |
-| v2 | 0.2.x |
-
 ## Usage
 
 ##### Firstly, to use Chatwork API, you must register an API Key.
