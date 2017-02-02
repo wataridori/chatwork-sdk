@@ -273,7 +273,7 @@ class ChatworkApi
      * Get a message.
      *
      * @param int $room_id
-     * @param int $message_id
+     * @param string $message_id
      *
      * @return array
      *
@@ -282,7 +282,7 @@ class ChatworkApi
     public function getRoomMessageByMessageId($room_id, $message_id)
     {
         return $this->api(
-            sprintf('rooms/%d/messages/%d', $room_id, $message_id)
+            sprintf('rooms/%d/messages/%s', $room_id, $message_id)
         );
     }
 
@@ -386,6 +386,42 @@ class ChatworkApi
             ChatworkRequest::REQUEST_METHOD_GET,
             ['create_download_url' => $create_download_url ? 1 : 0]
         );
+    }
+
+    /**
+     * Get Friend Request list.
+     *
+     * @return array
+     *
+     * @see http://developer.chatwork.com/ja/endpoint_incoming_requests.html#GET-incoming_requests
+     */
+    public function getIncomingRequests()
+    {
+        return $this->api('incoming_requests');
+    }
+
+    /**
+     * Accept Friend Request.
+     *
+     * @param int request_id
+     *
+     * @see http://developer.chatwork.com/ja/endpoint_incoming_requests.html#PUT-incoming_requests-request_id
+     */
+    public function acceptFriendRequest($request_id)
+    {
+        return $this->api(sprintf('incoming_requests/%d', $request_id), ChatworkRequest::REQUEST_METHOD_PUT);
+    }
+
+    /**
+     * Delete Friend Request.
+     *
+     * @param int request_id
+     *
+     * @see http://developer.chatwork.com/ja/endpoint_incoming_requests.html#DELETE-incoming_requests-request_id
+     */
+    public function deleteFriendRequest($request_id)
+    {
+        return $this->api(sprintf('incoming_requests/%d', $request_id), ChatworkRequest::REQUEST_METHOD_DELETE);
     }
 
     /**

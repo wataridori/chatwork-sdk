@@ -74,4 +74,16 @@ class ChatworkApiTest extends ChatworkTestBase
 
         $this->assertTrue(true);
     }
+
+    public function testGetIncomingRequest()
+    {
+        $this->prepareConfig();
+        if ($this->apiKey) {
+            ChatworkSDK::setApiKey($this->apiKey);
+            $api = new ChatworkApi();
+            $api->getIncomingRequests();
+        }
+
+        $this->assertTrue(true);
+    }
 }

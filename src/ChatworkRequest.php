@@ -18,7 +18,7 @@ class ChatworkRequest
      *
      * @var string
      */
-    protected $apiVersion = 'v1';
+    protected $apiVersion = 'v2';
 
     /**
      * Request Method.
