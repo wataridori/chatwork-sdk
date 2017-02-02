@@ -11,6 +11,9 @@ Chatwork SDK for PHP
 [![Latest Unstable Version](https://poser.pugx.org/wataridori/chatwork-sdk/v/unstable.svg)](https://packagist.org/packages/wataridori/chatwork-sdk)
 [![License](https://poser.pugx.org/wataridori/chatwork-sdk/license.svg)](https://packagist.org/packages/wataridori/chatwork-sdk)
 
+##### Chatwork SDK now supports [Chatwork API version 2](http://help.chatwork.com/hc/ja/articles/115000019401)
+##### Check the Chatwork API Document [here](http://developer.chatwork.com/ja/index.html)
+
 ## Requirement
 * PHP >= 5.4
 * PHP cURL
