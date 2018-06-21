@@ -273,4 +273,17 @@ class ChatworkBase
         $code = $this->buildCode($message);
         return $this->appendMessage($code);
     }
+
+    /**
+     * Build TO ALL message.
+     *
+     * @param string $message
+     *
+     * @return string
+     */
+    public function buildToAll($message, $mention = true)
+    {
+        $toAllText = $mention ? '[toall]' : 'TO ALL >>>';
+        return "{$toAllText}\n{$message}";
+    }
 }

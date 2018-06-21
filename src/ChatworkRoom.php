@@ -188,20 +188,15 @@ class ChatworkRoom extends ChatworkBase
      * Send Message To All Members in Room.
      *
      * @param null $sendMessage
-     * @param bool $withName
-     * @param bool $newLine
-     * @param bool $usePicon
+     * @param bool $mention
      */
-    public function sendMessageToAll($sendMessage, $withName = true, $newLine = true, $usePicon = false)
+    public function sendMessageToAll($sendMessage, $mention = true)
     {
-        if (!$this->listMembers) {
-            $this->getMembers();
-        }
-
-        if ($this->listMembers) {
-            $this->sendMessageToList($this->listMembers, $sendMessage, $withName, $newLine, $usePicon);
-        }
+        $message = $this->buildToAll($sendMessage, $mention);
+        $this->sendMessage($message);
     }
+
+
 
     /**
      * Build a Reply Message.
