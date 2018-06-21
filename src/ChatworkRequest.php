@@ -159,6 +159,7 @@ class ChatworkRequest
         curl_close($curl);
         if ($info['http_code'] >= 400) {
             $error = $response['errors'];
+
             throw new RequestFailException();
         }
 

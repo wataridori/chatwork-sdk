@@ -196,8 +196,6 @@ class ChatworkRoom extends ChatworkBase
         $this->sendMessage($message);
     }
 
-
-
     /**
      * Build a Reply Message.
      *
