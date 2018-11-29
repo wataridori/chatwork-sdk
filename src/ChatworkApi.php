@@ -10,6 +10,21 @@ class ChatworkApi
     public static $apiKey = '';
 
     /**
+     * @var int usageLimitMax
+     */
+    public $usageLimitMax = null;
+
+    /**
+     * @var int usageLimitRemaining
+     */
+    public $usageLimitRemaining = null;
+
+    /**
+     * @var int usageLimitResetTime
+     */
+    public $usageLimitResetTime = null;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -441,6 +456,10 @@ class ChatworkApi
         $request->setParams($params);
 
         $response = $request->send();
+
+        $this->usageLimitMax = intval($response['usage_limit_max']);
+        $this->usageLimitRemaining = intval($response['usage_limit_remaining']);
+        $this->usageLimitResetTime = intval($response['usage_limit_reset_time']);
 
         return $response['response'];
     }

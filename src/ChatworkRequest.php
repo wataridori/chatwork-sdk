@@ -151,21 +151,58 @@ class ChatworkRequest
         }
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HEADER, 1);
         if (!ChatworkSDK::getSslVerificationMode()) {
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
         }
-        $response = json_decode(curl_exec($curl), 1);
+        $response = curl_exec($curl);
+
         $info = curl_getinfo($curl);
+        $headers = substr($response, 0, $info['header_size']);
+        $headers = $this->parse_headers($headers);
+
+        $body = substr($response, $info['header_size']);
+        $body = json_decode($body, 1);
+
         curl_close($curl);
         if ($info['http_code'] >= 400) {
-            $error = $response['errors'];
+            $error = $body['errors'];
 
             throw new RequestFailException();
         }
 
         return [
             'http_code' => $info['http_code'],
-            'response' => $response,
+            'response' => $body,
+            'usage_limit_max' => isset($headers['X-RateLimit-Limit']) ? $headers['X-RateLimit-Limit'] : null,
+            'usage_limit_remaining' => isset($headers['X-RateLimit-Remaining']) ? $headers['X-RateLimit-Remaining'] : null,
+            'usage_limit_reset_time' => isset($headers['X-RateLimit-Reset']) ? $headers['X-RateLimit-Reset'] : null,
         ];
+    }
+
+    /**
+     * Parse response header.
+     *
+     * @param $headers
+     * @return array
+     */
+    protected function parse_headers ($headers) {
+        $result = [];
+        foreach (explode("\r\n", $headers) as $header) {
+            $header = explode(':', $header, 2);
+            $name = trim($header[0]);
+            $value = isset($header[1]) ? trim($header[1]) : '';
+
+            if(!$name){
+                continue;
+            }
+
+            if (array_key_exists($name, $result)) {
+                $result[$name] .= ", " . $value;
+            } else {
+                $result[$name] = $value;
+            }
+        }
+        return $result;
     }
 }
