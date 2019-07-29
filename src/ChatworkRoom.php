@@ -156,7 +156,7 @@ class ChatworkRoom extends ChatworkBase
     public function sendMessage($newMessage = null)
     {
         $message = $newMessage ? $newMessage : $this->message;
-        $this->chatworkApi->createRoomMessage($this->room_id, $message);
+        return $this->chatworkApi->createRoomMessage($this->room_id, $message);
     }
 
     /**
@@ -181,7 +181,7 @@ class ChatworkRoom extends ChatworkBase
             }
         }
         $this->appendMessage($sendMessage);
-        $this->sendMessage();
+        return $this->sendMessage();
     }
 
     /**
@@ -193,7 +193,7 @@ class ChatworkRoom extends ChatworkBase
     public function sendMessageToAll($sendMessage, $mention = true)
     {
         $message = $this->buildToAll($sendMessage, $mention);
-        $this->sendMessage($message);
+        return $this->sendMessage($message);
     }
 
     /**
@@ -245,6 +245,6 @@ class ChatworkRoom extends ChatworkBase
             }
         }
         $this->appendMessage($msg);
-        $this->sendMessage();
+        return $this->sendMessage();
     }
 }
