@@ -139,7 +139,11 @@ class ChatworkRequest
             case self::REQUEST_METHOD_PUT:
                 curl_setopt($curl, CURLOPT_PUT, 1);
                 if ($this->params) {
-                    curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->params, '', '&'));
+                    if ($this->params['body'] == 'done' || $this->params['body'] == 'open') {
+                        $url .= '?' . http_build_query($this->params, '', '&');
+                    } else {
+                        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($this->params, '', '&'));
+                    }
                 }
                 break;
             case self::REQUEST_METHOD_DELETE:

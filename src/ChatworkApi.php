@@ -350,6 +350,29 @@ class ChatworkApi
     }
 
     /**
+     * Update task Information.
+     *
+     * @param array $params
+     *
+     * @return mixed|void
+     *
+     * @see http://developer.chatwork.com/ja/endpoint_rooms.html#PUT-rooms-room_id-tasks-task_id-status
+     */
+    public function updateTaskById($room_id, $task_id, $status) {
+        $params = [];
+        if($status == 'done' || $status == 'open') {
+            $params = array_merge([
+                'body' => $status,
+            ], $params);
+        }
+        return $this->api(
+            sprintf('rooms/%d/tasks/%d/status', $room_id, $task_id),
+            ChatworkRequest::REQUEST_METHOD_PUT,
+            $params
+        );
+    }
+
+    /**
      * Get files of a room.
      *
      * @param int $room_id
